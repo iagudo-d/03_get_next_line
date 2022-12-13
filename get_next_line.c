@@ -1,6 +1,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
+#include <stdlib.h>
+
 /*
 char	*get_next_line(int fd)
 {
@@ -9,37 +11,34 @@ char	*get_next_line(int fd)
 */
 int		main(int argc, char **argv)
 {
-	int		counter;
+	int		argv_counter;
+	//int		argv_index;
 	ssize_t	*fildes;
+	int		fildes_counter;
 
-	counter = 0;
+	argv_counter = 1;
+	//argv_index = 0;
 	fildes = NULL;
+	fildes_counter = 0;
 	if (argc < 2)
 	{
 		printf("\n\tNo se ha proporcionado mingun argumento\n\n");
 	}
 	else
 	{
-		printf("\n\tEl numero de argumentos es: %i\n", argc - 1);
-		while (counter < (argc - 1))
+		fildes = malloc((argc - 1) * sizeof(ssize_t));
+		printf("\n\tEl numero de argumentos es: %i\n\n", argc - 1);
+		while (argv_counter < (argc))
 		{
-			printf("\n\tEl argumento %d es: ", counter);
-			while (*argv[counter] != '\0')
-			{
-				write(1, *argv, 1);
-				argv++;
-			}
-			counter++;
+			fildes[fildes_counter] = open(argv[argv_counter], O_RDONLY);
+			printf("\tEl argumento %d es: %s\n", argv_counter, argv[argv_counter]);
+			printf("\tEl FD del argumento %d es: %zd\n\n", argv_counter, fildes[fildes_counter]);
+			//fildes[fildes_counter] = close(argv_counter);
+			argv_counter++;
+			fildes_counter++;
 		}
-		/*while (counter < argc)
-		{
-			fildes[counter] = open(argv[counter + 1], O_RDONLY);
-			if (fildes[counter] == -1)
-				printf("\n\tError al abrir el archivo\n\n");
-			else
-				printf("\n\tEl File Descriptor es: %zu\n\n", fildes[counter]);
-			counter++;
-		}*/
+		printf("\n");
 	}
+
 	return (0);
 }
