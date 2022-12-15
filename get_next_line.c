@@ -9,6 +9,7 @@ char	*get_next_line(int fd)
 
 }
 */
+
 int		main(int argc, char **argv)
 {
 	int		argv_counter;
@@ -37,8 +38,25 @@ int		main(int argc, char **argv)
 			argv_counter++;
 			fildes_counter++;
 		}
+		/*while (fildes_counter > 1)
+		{
+			printf("\tVoy a cerrar el FD %d:\n", fildes_counter);
+			fildes[fildes_counter] = close(fildes_counter);
+			fildes_counter--;
+		}*/
+		printf("\n\tEl numero de argumentos es: %i\n\n", argc - 1);
+		printf("\n\tEl fildes_counter es: %i\n\n", fildes_counter);
+		printf("\n\tEl argv_counter es: %i\n\n", argv_counter);
+		/*argv_counter = 1;
+		while (argv_counter < (argc))
+		{
+			printf("\tEl argumento %d es: %s\n", argv_counter, argv[argv_counter]);
+			printf("\tEl FD del argumento %d es: %zd\n\n", argv_counter, fildes[fildes_counter]);
+			//fildes[fildes_counter] = close(argv_counter);
+			argv_counter++;
+			fildes_counter++;
+		}*/
 		printf("\n");
 	}
-
 	return (0);
 }
