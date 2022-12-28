@@ -71,17 +71,15 @@ char	*get_next_line(ssize_t fd)
 	static char	*buffer;
 	char		string[1024];
 	size_t		readed;
-	int			filedescriptor;
 	int			i;
 
 	buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	i = 0;
-	filedescriptor = fd;
-	printf("\t----%zd\n", fd);
-	readed = read(filedescriptor, &buffer, BUFFER_SIZE);
+	printf("\t****%zd\n", fd);
+	readed = read(fd, &buffer, BUFFER_SIZE);
 	printf("\tLos caracteres leidos %zd\n\n\n", readed);
 	//printf("%s", buffer);
-	ft_memcpy(string, buffer, 10);
+	//ft_memcpy(string, buffer, 10);
 	/*while (buffer[i] != '\0')
 	{
 		write(1, &buffer[i], 1);
@@ -101,13 +99,13 @@ char	*get_next_line(ssize_t fd)
 
 int		main(int argc, char **argv)
 {
-	int		argv_counter;
 	ssize_t	*fildes;
+	int		argv_counter;
 	int		fildes_counter;
 	//static char 	*buff;
 
-	argv_counter = 1;
 	fildes = NULL;
+	argv_counter = 1;
 	fildes_counter = 0;
 	if (argc < 2)
 	{
