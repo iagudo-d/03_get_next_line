@@ -69,15 +69,34 @@ int		ft_strlen(char *str)
 char	*get_next_line(ssize_t fd)
 {
 	static char	*buffer;
-	char		string[1024];
+	char		*string;
 	size_t		readed;
 	int			i;
 
 	buffer = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
+	string = ft_calloc((BUFFER_SIZE + 1), sizeof(char));
 	i = 0;
 	printf("\t****%zd\n", fd);
-	readed = read(fd, &buffer, BUFFER_SIZE);
+	readed = read(fd, buffer, BUFFER_SIZE);
 	printf("\tLos caracteres leidos %zd\n\n\n", readed);
+
+	/*while (i <= 32)
+	{
+		write(1, &string[i], 1);
+		buffer++;
+		i++;
+	}*/
+	ft_memcpy(string, buffer, BUFFER_SIZE);
+	i = 0;
+	while (i <= 32)
+	{
+		write(1, &string[i], 1);
+		buffer++;
+		i++;
+	}
+
+	printf("\n\n");
+
 	//printf("%s", buffer);
 	//ft_memcpy(string, buffer, 10);
 	/*while (buffer[i] != '\0')
@@ -102,27 +121,30 @@ int		main(int argc, char **argv)
 	ssize_t	*fildes;
 	int		argv_counter;
 	int		fildes_counter;
+	int		fides;
 	//static char 	*buff;
 
 	fildes = NULL;
 	argv_counter = 1;
 	fildes_counter = 0;
-	if (argc < 2)
+	fides = 0;
+	/*if (argc < 2)
 	{
 		printf("\n\tNo se ha proporcionado mingun argumento\n\n");
 	}
 	else
-	{
+	{*/
 		fildes = malloc((argc - 1) * sizeof(ssize_t));
 		printf("\n\tEl numero de argumentos es: %i\n\n", argc - 1);
 		while (argv_counter < (argc))
 		{			
-			fildes[fildes_counter] = open(argv[argv_counter], O_RDONLY);
+			fides = open("quijote.txt", O_RDONLY);
+			//fildes[fildes_counter] = open(argv[argv_counter], O_RDONLY);
 			printf("\tEl argumento %d es: %s\n", argv_counter, argv[argv_counter]);
 			printf("\tEl FD del argumento %d es: %zd\n", argv_counter, fildes[fildes_counter]);
 			printf("\tEl fildes_counter es: %i\n", fildes_counter);
 			printf("\tEl argv_counter es: %i\n\n\n", argv_counter);
-			get_next_line(fildes[fildes_counter]);
+			get_next_line(fides);
 			//printf("\t -- %s", buff);
 			argv_counter++;
 			fildes_counter++;
@@ -149,6 +171,6 @@ int		main(int argc, char **argv)
 			fildes_counter++;
 		}*/
 		printf("\n");
-	}
+	//}
 	return (0);
 }
